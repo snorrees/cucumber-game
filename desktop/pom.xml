@@ -4,16 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.cucumber.workshop</groupId>
-        <artifactId>parent</artifactId>
+        <artifactId>cucumber-workshop</artifactId>
+
         <version>1.0-SNAPSHOT</version>
     </parent>
 
       <artifactId>workshop-desktop</artifactId>
     <packaging>jar</packaging>
-    <name>Cucumber Workshop Desktop</name>
+    <name>Game Desktop Launcher</name>
 
     <properties>
-        <mainClass>com.cucumber.workshop.GameDesktop</mainClass>
+        <mainClass>com.cucumber.workshop.DesktopLauncher</mainClass>
     </properties>
 
     <build>
@@ -80,7 +81,7 @@
                                         <java fork="true" classname="${mainClass}"
                                               classpathref="maven.test.classpath">
                                             <sysproperty key="java.library.path" value="target/natives"/>
-                                            <sysproperty key="desktopResourcesFolder" value="assets/data/"/>
+                                            <sysproperty key="desktopResourcesFolder" value="assets"/>
                                         </java>
                                     </target>
                                 </configuration>

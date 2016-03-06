@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cucumber.workshop</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>cucumber-workshop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Cucumber Workshop</name>
@@ -11,7 +11,24 @@
     <modules>
         <module>core</module>
         <module>desktop</module>
+        <module>task1</module>
+        <module>task2</module>
+        <module>task3</module>
+        <module>task4</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>solution</id>
+            <modules>
+                <module>task1-solution</module>
+                <module>task2-solution</module>
+                <module>task3-solution</module>
+                <module>task4-solution</module>
+            </modules>
+        </profile>
+    </profiles>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,10 +36,13 @@
         <optimizeSystems>false</optimizeSystems>
         <gdx.version>1.6.5</gdx.version>
         <gdx.tools.version>1.6.5</gdx.tools.version>
-        <artemis.version>1.0.1</artemis.version>
+        <artemis.version>1.2.1</artemis.version>
+        <artemisContribVersion>1.1.0</artemisContribVersion>
+        <cucumber.version>1.2.3</cucumber.version>
         <downloadSources>true</downloadSources>
         <downloadJavadocs>true</downloadJavadocs>
     </properties>
+
 
     <repositories>
         <repository>
@@ -30,28 +50,49 @@
             <name>Sonatype</name>
             <url>https://oss.sonatype.org/content/repositories/releases</url>
         </repository>
-        <repository>
-            <id>gdx-nightlies</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
     </repositories>
-
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>false</showWarnings>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.12.4</version>
+                <executions>
+                    <execution>
+                        <id>run-integration-tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify-integration-tests</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>**/*IT.class</include>
+                        <include>**/*AT.class</include>
+                    </includes>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -122,6 +163,26 @@
                 <artifactId>artemis-odb</artifactId>
                 <version>${artemis.version}</version>
             </dependency>
+            <dependency>
+                <groupId>net.mostlyoriginal.artemis-odb</groupId>
+                <artifactId>contrib-core</artifactId>
+                <version>${artemisContribVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.mostlyoriginal.artemis-odb</groupId>
+                <artifactId>contrib-jam</artifactId>
+                <version>${artemisContribVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.mostlyoriginal.artemis-odb</groupId>
+                <artifactId>contrib-eventbus</artifactId>
+                <version>${artemisContribVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>4.0</version>
+            </dependency>
 
             <!-- test dependencies -->
             <dependency>
@@ -136,8 +197,18 @@
             </dependency>
             <dependency>
                 <groupId>info.cukes</groupId>
-                <artifactId>cucumber-java8</artifactId>
-                <version>1.2.3</version>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>info.cukes</groupId>
+                <artifactId>cucumber-guice</artifactId>
+                <version>${cucumber.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
