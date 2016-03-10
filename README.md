@@ -58,6 +58,9 @@ Running the game is not a requirement to complete the Cucumber workshop, however
 * Enemies in greyscale cannot be attacked.
 * Enemies with a color can be attacked by clicking them.
 * When an enemy is attacked, the attacktype of the cursor will change AND the enemy type of all enemies will change.
+* Hit F5 to resstart the game.
+* Hit F2 for debug overlay.
+
 
 Yupp - its very bare-bones ;-)
 
